@@ -1,0 +1,35 @@
+﻿@model List<AccountViewModel>
+@{
+}
+<h2 class="mb-2">Contas</h2>
+<a class="btn btn-primary mb-2" asp-controller="Account" asp-action="Form">
+    Adicionar Conta
+</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrição</th>
+            <th scope="col"><i class="fa fa-gear"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var account in Model)
+        {
+            <tr>
+                <th scope="row">@account.Id</th>
+                <td>@account.Name</td>
+                <td>@account.Description</td>
+                <td>
+                    <form method="post" asp-action="Delete" asp-route-id="@account.Id">
+
+                
+                    <a class="fa fa-pencil btn btn-primary" asp-controller="Account" asp-action="Form" asp-route-id="@account.Id"></a>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -12,7 +12,7 @@ namespace API.Core.DI
             {
                 var config = p.Resolve<IConfiguration>();
                 var opt = new DbContextOptionsBuilder<ChallengeCGDbContext>();
-                var connectionString = config.GetConnectionString("ChallengeCGDataBase");
+                var connectionString = config["ChallengeDB"];
                 opt.UseSqlServer(connectionString);
                 return new ChallengeCGDbContext(opt.Options);
             }).AsSelf().InstancePerLifetimeScope();

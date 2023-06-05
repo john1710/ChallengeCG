@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Authenticators;
-using System.Text.Json.Serialization;
-using System.Threading;
 using Web.Data.Input;
 using Web.Interfaces;
 using Web.Models;
@@ -13,20 +9,16 @@ namespace Web.Services
     public class AccountService : IAccountService
     {
 
-        /*
-         
-var options = new RestClientOptions("https://api.twitter.com/1.1") {
-    Authenticator = new HttpBasicAuthenticator("username", "password")
-};
-var client = new RestClient(options);
-var request = new RestRequest("statuses/home_timeline.json");
-// The cancellation token comes from the caller. You can still make a call without it.
-var response = await client.GetAsync(request, cancellationToken);
-        */
+        private readonly string _apiURL;
         private readonly RestClient httpClient;
-        public AccountService()
+        public AccountService(IConfiguration configuration)
         {
-            var options = new RestClientOptions("https://localhost:7192/api");
+            _apiURL = configuration["API_URL"];
+            var options = new RestClientOptions(_apiURL)
+            {
+                
+            };
+            Console.WriteLine($"{_apiURL} <---------- URLLL");
             httpClient = new RestClient(options);
         }
         public async Task<AccountViewModel> Create(UpsertAccountInput entity)
